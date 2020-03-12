@@ -14,6 +14,8 @@
 export interface Class<T> {
   // new MyClass(...args) ==> T
   new (...args: any[]): T;
+  // Prototype
+  prototype: T;
   // Other static properties/operations
   [property: string]: any;
 }

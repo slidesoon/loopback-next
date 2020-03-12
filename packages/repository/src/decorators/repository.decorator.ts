@@ -142,7 +142,8 @@ export function repository(
   // if string, repository or not a model ctor,
   // keep it a string / assign to ctor's name (string) for DI
   const stringOrModel =
-    typeof modelOrRepo !== 'string' && !modelOrRepo.prototype.getId
+    typeof modelOrRepo !== 'string' &&
+    !(Object.getPrototypeOf(modelOrRepo) === Entity)
       ? modelOrRepo.name
       : (modelOrRepo as typeof Entity);
   const meta = new RepositoryMetadata(stringOrModel, dataSource);
