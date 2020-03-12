@@ -18,9 +18,9 @@ The type validation in the REST layer comes out of the box in LoopBack.
 > Validations are applied on the parameters and the request body data. They also
 > use OpenAPI specification as the reference to infer the validation rules.
 
-For instance, the `capacity` property in the `CoffeeShop` model is a number.
-When creating a `CoffeeShop` by calling /POST, if you specify the `capacity`
-property as a string like below:
+Take the `capacity` property in the `CoffeeShop` model as an example, it is a
+number. When creating a `CoffeeShop` by calling /POST, if a string is specified
+for the `capacity` property as below:
 
 ```json
 {
@@ -30,7 +30,7 @@ property as a string like below:
 }
 ```
 
-you'll receive a "request body is invalid" error:
+a "request body is invalid" error is expected:
 
 ```json
 {
@@ -55,20 +55,22 @@ you'll receive a "request body is invalid" error:
 
 ## Validation against OpenAPI Schema Specification
 
-You can use the [AJV module](https://github.com/epoberezkin/ajv) to to validate
-data with a JSON schema generated from the OpenAPI schema specification.
+For validation against an OpenAPI schema specification, the
+[AJV module](https://github.com/epoberezkin/ajv) can be used to validate data
+with a JSON schema generated from the OpenAPI schema specification.
 
-While you can find out more details on the
+More details can be found about
 [validation keywords](https://github.com/epoberezkin/ajv#validation-keywords)
 and
 [annotation keywords](https://github.com/epoberezkin/ajv#annotation-keywords)
-available in AJV, I'm going to show you a few common examples using AJV for
-validation.
+available in AJV.
+
+Below are a few examples on the usage.
 
 ### Example#1: Length limit
 
-A typical validation example is to have a length limit on a string. You can use
-`maxLength` and `minLength` for this. For example:
+A typical validation example is to have a length limit on a string using the
+keywords `maxLength` and `minLength`. For example:
 
 ```ts
   @property({
@@ -95,7 +97,7 @@ follows:
 }
 ```
 
-you'll get an error with details on what has been violated:
+an error will occur with details on what has been violated:
 
 ```json
 {
@@ -120,8 +122,9 @@ you'll get an error with details on what has been violated:
 
 ### Example#2: Value range for a number
 
-For numbers, you can specify the range of the value. Say, any coffee shop would
-not be able to have more than 100 people, we can specify the following:
+For numbers, the validation rules can be used to specify the range of the value.
+For example, any coffee shop would not be able to have more than 100 people, it
+can be specified as follows:
 
 ```ts
   @property({
@@ -140,11 +143,11 @@ not be able to have more than 100 people, we can specify the following:
 ### Example#3: Pattern in a string
 
 Model properties, such as phone number and postal/zip code, usually have certain
-patterns. In this case, you can use the `pattern` keyword to specify the
+patterns. In this case, the `pattern` keyword can be used to specify the
 restrictions.
 
-Below shows any example of the expected pattern of phone numbers, i.e. a
-sequence of 10 digits separated by `-` after the 3rd and 6th digits.
+Below shows an example of the expected pattern of phone numbers, i.e. a sequence
+of 10 digits separated by `-` after the 3rd and 6th digits.
 
 ```ts
   @property({
